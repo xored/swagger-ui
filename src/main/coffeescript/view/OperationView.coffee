@@ -114,10 +114,13 @@ class OperationView extends Backbone.View
           if map[param.name]?
             bodyParam.append(param.name, map[param.name])
       else
-        bodyParam = null
+        bodyParam = {}
         for param in @model.parameters
-          if param.paramType is 'body'
-            bodyParam = map[param.name]
+          for param in @model.parameters
+            if map[param.name]?
+              bodyParam[param.name] = map[param.name]
+
+        bodyParam = JSON.stringify(bodyParam)
 
       log "bodyParam = " + bodyParam 
 
